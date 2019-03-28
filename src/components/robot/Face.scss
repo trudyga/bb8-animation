@@ -1,0 +1,16 @@
+.head {
+  transform: rotate(0);
+  transform-origin: 415px 880px;
+  transition: transform 1s;
+  transition-timing-function: ease-in-out;
+
+  &_tiltedBack {
+    transition-duration: 2s;
+    transform: rotate(10deg);
+  }
+
+  &_tiltedFront {
+    transition-duration: 3s;
+    transform: rotate(-25deg);
+  }
+}

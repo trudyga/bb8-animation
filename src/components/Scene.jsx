@@ -5,10 +5,8 @@ import Sky from './background/Sky';
 import Mountains from './background/Mountains';
 import Stones from './background/Stones';
 
-// Robot parts
-import BodyShadow from './robot/BodyShadow';
-import BodyWheel from './robot/BodyWheel';
-import Face from './robot/Face';
+// Robot
+import Robot from './robot/Robot';
 
 import EndlessSlide from './utils/EndlessSlide';
 
@@ -78,18 +76,7 @@ const Scene = () => (
         </g>
       </EndlessSlide>
 
-      <g
-        id="bb8"
-        // style={{
-        //   transform: 'translate(90%, 40%) scale(0.1, 0.1)',
-        //   transition: 'transform 1s ease-in-out'
-        // }}
-        transform="translate(1273.000000, 1172.000000)"
-      >
-        <BodyShadow />
-        <BodyWheel />
-        <Face />
-      </g>
+      <Robot />
     </g>
   </svg>
 );

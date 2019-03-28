@@ -1,8 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
+import classNames from 'classnames';
 import TimelineMax from 'gsap/TimelineMax';
+import styles from './Face.scss';
 
 class Face extends React.PureComponent {
+  static propTypes = {
+    titlPosition: PropTypes.oneOf(['none', 'front', 'back']),
+    onLookBackward: PropTypes.func,
+    onLookBackwardEnd: PropTypes.func
+  };
+
+  static defaultProps = {
+    titlPosition: 'none',
+    onLookBackward: () => {},
+    onLookBackwardEnd: () => {}
+  };
+
   $face = null;
 
   faceTransform = { x: -275, y: 21, maxL: { x: -575 }, midL: { x: -550 }, maxR: { x: -25 } };
@@ -11,7 +26,10 @@ class Face extends React.PureComponent {
 
   eyesTransform = { x: 490, y: 66 };
 
+  $head = null;
+
   componentDidMount() {
+    const { onLookBackward, onLookBackwardEnd } = this.props;
     const faceTimeline = new TimelineMax({ repeat: -1 });
 
     const faceItems = [this.$face, this.$eyes];
@@ -19,10 +37,13 @@ class Face extends React.PureComponent {
     faceTimeline
       .delay(3)
       .to(faceItems, 0.5, {
-        x: this.faceTransform.maxR.x
+        x: this.faceTransform.maxR.x,
+        onStart: onLookBackward,
+        delay: 3
       })
       .to(faceItems, 0.3, {
         x: this.faceTransform.x,
+        onStart: onLookBackwardEnd,
         delay: 2
       })
       .to(faceItems, 0.7, {
@@ -44,10 +65,20 @@ class Face extends React.PureComponent {
   }
 
   render() {
+    const { titlPosition } = this.props;
     const eyesTransform = `translate(${this.eyesTransform.x}, ${this.eyesTransform.y})`;
 
     return (
-      <g id="bb8-head">
+      <g
+        ref={el => {
+          this.$head = el;
+        }}
+        className={classNames(styles.head, {
+          [styles.head_tiltedFront]: titlPosition === 'front',
+          [styles.head_tiltedBack]: titlPosition === 'back'
+        })}
+        id="bb8-head"
+      >
         <g transform="translate(0.253000, 467.872000)">
           <mask id="h" fill="#fff">
             <use xlinkHref="#g" />

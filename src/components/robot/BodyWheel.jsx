@@ -1,11 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TimelineMax from 'gsap/TimelineMax';
 import TweenMax from 'gsap/TweenMax';
 import { Power3, Linear } from 'gsap/EasePack';
 
 class BodyWheel extends React.PureComponent {
+  static propTypes = {
+    onMovementStart: PropTypes.func,
+    onSpeedUpComplete: PropTypes.func
+  };
+
+  static defaultProps = {
+    onMovementStart: () => {},
+    onSpeedUpComplete: () => {}
+  };
+
   componentDidMount() {
+    const { onMovementStart, onSpeedUpComplete } = this.props;
+
     const tl = new TimelineMax({ repeat: 0 });
 
     const slideTween = TweenMax.fromTo(
@@ -17,7 +30,8 @@ class BodyWheel extends React.PureComponent {
         ease: Power3.easeIn,
         rotation: -360 * 1,
         svgOrigin: '300px 300px',
-        onComplete: () => {}
+        onStart: onMovementStart,
+        onComplete: onSpeedUpComplete
       }
     );
     tl.add(slideTween);
