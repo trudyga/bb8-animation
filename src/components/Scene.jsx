@@ -70,6 +70,13 @@ const Scene = () => (
     <g fill="none" fillRule="evenodd">
       <use fill="#DDBE9A" xlinkHref="#a" />
       <Cloud />
+      <g
+        style={{
+          transform: 'translate(1300px, 250px) scale(0.7, 0.5) skew(-67deg, -9deg) rotateY(2deg)'
+        }}
+      >
+        <Cloud />
+      </g>
       <Mountains />
       <EndlessSlide>
         <Stones />

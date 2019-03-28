@@ -1,7 +1,9 @@
 import React from 'react';
 
+import EndlessSlide from '../utils/EndlessSlide';
+
 const BackMountainsLayer = () => (
-  <g id="mountains-back">
+  <g transform="translate(0, 40)" id="mountains-back">
     <g transform="translate(0.000000, 296.000000)">
       <polygon
         fill="#CB9D79"
@@ -36,7 +38,7 @@ const BackMountainsLayer = () => (
 );
 
 const MiddleMountainsLayer = () => (
-  <g id="mountains-middle">
+  <g transform="translate(0, 40)" id="mountains-middle">
     <polygon
       fill="#A57C5D"
       points="1719 714.124 1619.876 671.334 1575.391 644.364 1534.511 626.614 1507.364 624.591 1484.086 612.361 1472.953 610.154 1453.569 600.338 1428.622 598.018 1395.152 579.968 1384.516 559.876 1364.496 565.776 1346.802 562.056 1305.41 546.271 1255.14 528.379 1230.842 514.782 1210.362 514.782 1184.502 497.715 1182.1 490.718 1150.717 482.972 1112.432 470.236 1092.782 461.416 1073.224 461.416 1034.038 450.046 1006.488 448.506 976.31 436.8 949.382 429.722 936.672 427.997 934.222 421.217 919.752 411.967 903.976 424.575 877.103 427.583 859.533 446.385 843.298 462.447 822.888 482.784 806.192 484.406 785.662 493.829 780.54 510.196 754.337 513.092 730.73 513.945 729.76 522.717 704.464 527.599 676.614 537.839 668.294 543.947 666.911 550.447 650.488 553.59 629.08 559.297 625.592 560.205 618.3 556.658 605.792 552.288 595.947 542.923 588.553 532.263 570.879 532.886 569.396 527.952 557.252 525.219 543.836 512.877 543.642 501.337 524.135 490.074 511.145 480.698 495.99 473.656 481.462 458.856 472.369 455.986 454.732 431.656 427.006 446.326 421.952 464.624 408.052 469.664 398.177 495.172 382.609 497.059 378.786 500.642 361.503 507.186 355.213 532.506 283.293 547.15 281.539 548.718 271.741 714.134"
@@ -58,9 +60,27 @@ const FrontMountainsLayer = () => (
 
 const Mountains = () => (
   <g fillRule="nonzero" transform="translate(0.000000, 357.000000)">
-    <BackMountainsLayer />
-    <MiddleMountainsLayer />
-    <FrontMountainsLayer />
+    <EndlessSlide slideSpeedMultiplier={0.007}>
+      <BackMountainsLayer />
+
+      <g style={{ transform: 'translateX(-100%)' }}>
+        <BackMountainsLayer />
+      </g>
+    </EndlessSlide>
+    <EndlessSlide slideSpeedMultiplier={0.015}>
+      <MiddleMountainsLayer />
+
+      <g style={{ transform: 'translateX(-100%)' }}>
+        <MiddleMountainsLayer />
+      </g>
+    </EndlessSlide>
+    <EndlessSlide slideSpeedMultiplier={0.05}>
+      <FrontMountainsLayer />
+
+      <g style={{ transform: 'translateX(calc(-100% + 4px))' }}>
+        <FrontMountainsLayer />
+      </g>
+    </EndlessSlide>
   </g>
 );
 
