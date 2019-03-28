@@ -10,6 +10,8 @@ import BodyShadow from './robot/BodyShadow';
 import BodyWheel from './robot/BodyWheel';
 import Face from './robot/Face';
 
+import EndlessSlide from './utils/EndlessSlide';
+
 const Scene = () => (
   <svg width="3447px" viewBox="0 0 3447 3152">
     <defs>
@@ -69,8 +71,21 @@ const Scene = () => (
       <use fill="#DDBE9A" xlinkHref="#a" />
       <Cloud />
       <Mountains />
-      <Stones />
-      <g id="bb8" transform="translate(1273.000000, 1172.000000)">
+      <EndlessSlide>
+        <Stones />
+        <g style={{ transform: 'translateX(-100%)' }}>
+          <Stones />
+        </g>
+      </EndlessSlide>
+
+      <g
+        id="bb8"
+        style={{
+          transform: 'translate(90%, 40%) scale(0.1, 0.1)',
+          transition: 'transform 1s ease-in-out'
+        }}
+        transform="translate(1273.000000, 1172.000000)"
+      >
         <BodyShadow />
         <BodyWheel />
         <Face />
