@@ -1,0 +1,11 @@
+.cloud {
+  transform: translate(1300px, 250px) scale(0.9, 0.5) skew(-73deg, -9deg) rotateY(0);
+
+  &_shifted {
+    transform: translate(1900px, 350px) scale(0.9, 0.5) skew(-73deg, -9deg) rotateY(0);
+  }
+
+  &_composed {
+    transform: translate(1300px, 250px) scale(0.7, 0.5) skew(-67deg, -9deg) rotateY(2deg);
+  }
+}

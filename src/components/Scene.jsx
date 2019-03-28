@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Background parts
-import Cloud from './background/Cloud';
+import Sky from './background/Sky';
 import Mountains from './background/Mountains';
 import Stones from './background/Stones';
 
@@ -69,14 +69,7 @@ const Scene = () => (
     </defs>
     <g fill="none" fillRule="evenodd">
       <use fill="#DDBE9A" xlinkHref="#a" />
-      <Cloud />
-      <g
-        style={{
-          transform: 'translate(1300px, 250px) scale(0.7, 0.5) skew(-67deg, -9deg) rotateY(2deg)'
-        }}
-      >
-        <Cloud />
-      </g>
+      <Sky />
       <Mountains />
       <EndlessSlide>
         <Stones />
