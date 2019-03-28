@@ -80,10 +80,10 @@ const Scene = () => (
 
       <g
         id="bb8"
-        style={{
-          transform: 'translate(90%, 40%) scale(0.1, 0.1)',
-          transition: 'transform 1s ease-in-out'
-        }}
+        // style={{
+        //   transform: 'translate(90%, 40%) scale(0.1, 0.1)',
+        //   transition: 'transform 1s ease-in-out'
+        // }}
         transform="translate(1273.000000, 1172.000000)"
       >
         <BodyShadow />

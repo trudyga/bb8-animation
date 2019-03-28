@@ -20,22 +20,20 @@ class EndlessSlide extends React.PureComponent {
   componentDidMount() {
     const tl = new TimelineMax({ repeat: 0 });
 
-    setTimeout(() => {
-      const slideTween = TweenMax.fromTo(
-        this.$wrapper,
-        4,
-        { xPercent: 0 },
-        {
-          lazy: true,
-          ease: Power3.easeIn,
-          xPercent: 50,
-          onComplete: () => {
-            this.$wrapper.classList.add(styles.slide);
-          }
+    const slideTween = TweenMax.fromTo(
+      this.$wrapper,
+      4,
+      { xPercent: 0 },
+      {
+        lazy: true,
+        ease: Power3.easeIn,
+        xPercent: 50,
+        onComplete: () => {
+          this.$wrapper.classList.add(styles.slide);
         }
-      );
-      tl.add(slideTween);
-    }, 1000);
+      }
+    );
+    tl.add(slideTween);
     this.slideAnimation = tl;
   }
 
