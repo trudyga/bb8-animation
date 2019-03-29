@@ -14,7 +14,7 @@ class Robot extends React.PureComponent {
   $robotShadow = null;
 
   state = {
-    headTitlPosition: 'none'
+    headTiltPosition: 'none'
   };
 
   componentDidMount() {
@@ -53,30 +53,36 @@ class Robot extends React.PureComponent {
   }
 
   componentWillUnmount() {
-    clearTimeout(this.titlTimeout);
+    clearTimeout(this.tiltTimeout);
   }
 
-  titlHeadForward = () => {
+  tiltHeadForward = () => {
     this.setState({
-      headTitlPosition: 'front'
+      headTiltPosition: 'front'
     });
   };
 
-  titlHeadBackward = () => {
+  tiltHeadMiddle = () => {
     this.setState({
-      headTitlPosition: 'back'
+      headTiltPosition: 'middle'
     });
   };
 
-  innertionHeadTitl = () => {
-    this.titlHeadBackward();
-    // titl head forward after 2 seconds
-    clearTimeout(this.titlTimeout);
-    this.titlTimeout = setTimeout(this.titlHeadForward, 2000);
+  tiltHeadBackward = () => {
+    this.setState({
+      headTiltPosition: 'back'
+    });
+  };
+
+  innertionHeadTilt = () => {
+    this.tiltHeadBackward();
+    // tilt head forward after 2 seconds
+    clearTimeout(this.tiltTimeout);
+    this.tiltTimeout = setTimeout(this.tiltHeadMiddle, 2000);
   };
 
   render() {
-    const { headTitlPosition } = this.state;
+    const { headTiltPosition } = this.state;
     return (
       <g>
         <g
@@ -100,13 +106,14 @@ class Robot extends React.PureComponent {
             }}
           >
             <BodyWheel
-              onMovementStart={this.innertionHeadTitl}
-              onSpeedUpComplete={this.titlHeadForward}
+              onMovementStart={this.innertionHeadTilt}
+              onSpeedUpComplete={this.tiltHeadForward}
             />
             <Face
-              tiltPosition={headTitlPosition}
-              onLookBackward={this.titlHeadBackward}
-              onLookBackwardEnd={this.titlHeadForward}
+              tiltPosition={headTiltPosition}
+              onLookBackward={this.tiltHeadBackward}
+              onLookMiddle={this.tiltHeadMiddle}
+              onLookForward={this.tiltHeadForward}
             />
           </g>
         </g>

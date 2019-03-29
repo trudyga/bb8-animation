@@ -9,6 +9,11 @@
     transform: rotate(10deg);
   }
 
+  &_tiltedMiddle {
+    transition-duration: 2s;
+    transform: rotate(0deg);
+  }
+
   &_tiltedFront {
     transition-duration: 3s;
     transform: rotate(-25deg);

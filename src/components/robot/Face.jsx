@@ -10,15 +10,17 @@ import styles from './Face.scss';
 
 class Face extends React.PureComponent {
   static propTypes = {
-    tiltPosition: PropTypes.oneOf(['none', 'front', 'back']),
+    tiltPosition: PropTypes.oneOf(['none', 'front', 'back', 'middle']),
     onLookBackward: PropTypes.func,
-    onLookBackwardEnd: PropTypes.func
+    onLookMiddle: PropTypes.func,
+    onLookForward: PropTypes.func
   };
 
   static defaultProps = {
     tiltPosition: 'none',
     onLookBackward: () => {},
-    onLookBackwardEnd: () => {}
+    onLookMiddle: () => {},
+    onLookForward: () => {}
   };
 
   state = {
@@ -48,7 +50,7 @@ class Face extends React.PureComponent {
   }
 
   initFaceAnimation = () => {
-    const { onLookBackward, onLookBackwardEnd } = this.props;
+    const { onLookBackward, onLookMiddle, onLookForward } = this.props;
     const faceTimeline = new TimelineMax({ repeat: -1 });
 
     const faceItems = [this.$face, this.$eyes];
@@ -61,11 +63,12 @@ class Face extends React.PureComponent {
       })
       .to(faceItems, 0.3, {
         x: this.faceTransform.x,
-        onStart: onLookBackwardEnd,
+        onStart: onLookMiddle,
         delay: 2
       })
       .to(faceItems, 0.7, {
         x: this.faceTransform.midL.x,
+        onStart: onLookForward,
         delay: 3
       })
       .to(faceItems, 0.9, {
@@ -78,6 +81,7 @@ class Face extends React.PureComponent {
       })
       .to(faceItems, 0.6, {
         x: this.faceTransform.x,
+        onStart: onLookMiddle,
         delay: 1.5
       });
   };
@@ -125,7 +129,8 @@ class Face extends React.PureComponent {
         }}
         className={classNames(styles.head, {
           [styles.head_tiltedFront]: tiltPosition === 'front',
-          [styles.head_tiltedBack]: tiltPosition === 'back'
+          [styles.head_tiltedBack]: tiltPosition === 'back',
+          [styles.head_tiltedMiddle]: tiltPosition === 'middle'
         })}
         id="bb8-head"
       >
