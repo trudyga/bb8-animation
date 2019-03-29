@@ -57,14 +57,12 @@ class Robot extends React.PureComponent {
   }
 
   titlHeadForward = () => {
-    console.log('font');
     this.setState({
       headTitlPosition: 'front'
     });
   };
 
   titlHeadBackward = () => {
-    console.log('back');
     this.setState({
       headTitlPosition: 'back'
     });
@@ -106,7 +104,7 @@ class Robot extends React.PureComponent {
               onSpeedUpComplete={this.titlHeadForward}
             />
             <Face
-              titlPosition={headTitlPosition}
+              tiltPosition={headTitlPosition}
               onLookBackward={this.titlHeadBackward}
               onLookBackwardEnd={this.titlHeadForward}
             />

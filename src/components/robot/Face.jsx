@@ -10,13 +10,13 @@ import styles from './Face.scss';
 
 class Face extends React.PureComponent {
   static propTypes = {
-    titlPosition: PropTypes.oneOf(['none', 'front', 'back']),
+    tiltPosition: PropTypes.oneOf(['none', 'front', 'back']),
     onLookBackward: PropTypes.func,
     onLookBackwardEnd: PropTypes.func
   };
 
   static defaultProps = {
-    titlPosition: 'none',
+    tiltPosition: 'none',
     onLookBackward: () => {},
     onLookBackwardEnd: () => {}
   };
@@ -115,7 +115,7 @@ class Face extends React.PureComponent {
 
   render() {
     const { isIndicatorActive } = this.state;
-    const { titlPosition } = this.props;
+    const { tiltPosition } = this.props;
     const eyesTransform = `translate(${this.eyesTransform.x}, ${this.eyesTransform.y})`;
 
     return (
@@ -124,8 +124,8 @@ class Face extends React.PureComponent {
           this.$head = el;
         }}
         className={classNames(styles.head, {
-          [styles.head_tiltedFront]: titlPosition === 'front',
-          [styles.head_tiltedBack]: titlPosition === 'back'
+          [styles.head_tiltedFront]: tiltPosition === 'front',
+          [styles.head_tiltedBack]: tiltPosition === 'back'
         })}
         id="bb8-head"
       >
