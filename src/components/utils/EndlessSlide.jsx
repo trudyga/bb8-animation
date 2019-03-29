@@ -6,8 +6,6 @@ import TweenMax from 'gsap/TweenMax';
 import { Power3, Power0 } from 'gsap/EasePack';
 import 'gsap/CSSPlugin';
 
-import styles from './EndlessSlide.scss';
-
 class EndlessSlide extends React.PureComponent {
   static propTypes = {
     slideSpeedMultiplier: PropTypes.number,
@@ -40,26 +38,45 @@ class EndlessSlide extends React.PureComponent {
         xPercent: 50 * slideSpeedMultiplier,
         onComplete: () => {
           if (restPercent <= 0) {
-            this.$wrapper.classList.add(styles.slide);
-            this.$wrapper.style.animationDuration = `${1 / slideSpeedMultiplier}s`;
+            tl.fromTo(
+              this.$wrapper,
+              1 / slideSpeedMultiplier,
+              {
+                xPercent: 0
+              },
+              {
+                xPercent: 50,
+                ease: Power0.easeNone,
+                repeat: -1
+              }
+            );
+          } else {
+            tl.add(
+              TweenMax.to(this.$wrapper, 1 / slideSpeedMultiplier / (restPercent / 50), {
+                xPercent: 50,
+                ease: Power0.easeNone,
+                onComplete: () => {
+                  tl.fromTo(
+                    this.$wrapper,
+                    1 / slideSpeedMultiplier,
+                    {
+                      xPercent: 0
+                    },
+                    {
+                      xPercent: 50,
+                      ease: Power0.easeNone,
+                      repeat: -1
+                    }
+                  );
+                }
+              })
+            );
           }
         }
       }
     );
     tl.delay(10);
     tl.add(slideTween);
-    if (restPercent > 0) {
-      tl.add(
-        TweenMax.to(this.$wrapper, 1 / slideSpeedMultiplier / (restPercent / 50), {
-          xPercent: 50,
-          ease: Power0.easeNone,
-          onComplete: () => {
-            this.$wrapper.classList.add(styles.slide);
-            this.$wrapper.style.animationDuration = `${1 / slideSpeedMultiplier}s`;
-          }
-        })
-      );
-    }
     this.slideAnimation = tl;
   }
 
