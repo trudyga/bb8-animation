@@ -10,8 +10,6 @@ import Robot from './robot/Robot';
 
 import EndlessSlide from './utils/EndlessSlide';
 
-import styles from './Scene.scss';
-
 const Scene = () => (
   <svg width="3447px" viewBox="0 0 3447 3152">
     <defs>
@@ -67,13 +65,13 @@ const Scene = () => (
         <stop offset="100%" />
       </linearGradient>
     </defs>
-    <g fill="none" fillRule="evenodd">
+    <g style={{ width: '100%' }} fill="none" fillRule="evenodd">
       <use fill="#DDBE9A" xlinkHref="#a" />
       <Sky />
       <Mountains />
       <EndlessSlide>
         <Stones />
-        <g className={styles.shifted}>
+        <g transform="translate(-3447, 0)">
           <Stones />
         </g>
       </EndlessSlide>

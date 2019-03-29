@@ -64,21 +64,21 @@ const Mountains = () => (
     <EndlessSlide slideSpeedMultiplier={0.007}>
       <BackMountainsLayer />
 
-      <g className={styles.shifted}>
+      <g transform="translate(-3447, 0)" className={styles.shifted}>
         <BackMountainsLayer />
       </g>
     </EndlessSlide>
     <EndlessSlide slideSpeedMultiplier={0.015}>
       <MiddleMountainsLayer />
 
-      <g className={styles.shifted}>
+      <g transform="translate(-3447, 0)" className={styles.shifted}>
         <MiddleMountainsLayer />
       </g>
     </EndlessSlide>
     <EndlessSlide slideSpeedMultiplier={0.05}>
       <FrontMountainsLayer />
 
-      <g className={styles.shifted_clearfix}>
+      <g transform="translate(-3443, 0)" className={styles.shifted_clearfix}>
         <FrontMountainsLayer />
       </g>
     </EndlessSlide>
