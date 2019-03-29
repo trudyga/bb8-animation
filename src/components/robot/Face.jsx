@@ -87,7 +87,7 @@ class Face extends React.PureComponent {
     const faceDetailsTimeline = new TimelineMax({});
     faceDetailsTimeline
       .delay(1)
-      .to(faceItems, 0.4, {
+      .to(faceItems, 0.6, {
         x: this.faceTransform.x,
         delay: 3,
         onComplete: () => this.setState({ isIndicatorActive: true })
@@ -248,7 +248,7 @@ class Face extends React.PureComponent {
                     ref={el => {
                       this.$lensSwitch = el;
                     }}
-                    style={{ transform: 'translateX(6.5px)' }}
+                    transform="translate(6.5 0)"
                     cx="11"
                     cy="18"
                     r="11"

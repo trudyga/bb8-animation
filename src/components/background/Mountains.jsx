@@ -1,6 +1,7 @@
 import React from 'react';
 
 import EndlessSlide from '../utils/EndlessSlide';
+import styles from './Mountains.scss';
 
 const BackMountainsLayer = () => (
   <g transform="translate(0, 40)" id="mountains-back">
@@ -63,21 +64,21 @@ const Mountains = () => (
     <EndlessSlide slideSpeedMultiplier={0.007}>
       <BackMountainsLayer />
 
-      <g style={{ transform: 'translateX(-100%)' }}>
+      <g className={styles.shifted}>
         <BackMountainsLayer />
       </g>
     </EndlessSlide>
     <EndlessSlide slideSpeedMultiplier={0.015}>
       <MiddleMountainsLayer />
 
-      <g style={{ transform: 'translateX(-100%)' }}>
+      <g className={styles.shifted}>
         <MiddleMountainsLayer />
       </g>
     </EndlessSlide>
     <EndlessSlide slideSpeedMultiplier={0.05}>
       <FrontMountainsLayer />
 
-      <g style={{ transform: 'translateX(calc(-100% + 4px))' }}>
+      <g className={styles.shifted_clearfix}>
         <FrontMountainsLayer />
       </g>
     </EndlessSlide>

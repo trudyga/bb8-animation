@@ -10,6 +10,8 @@ import Robot from './robot/Robot';
 
 import EndlessSlide from './utils/EndlessSlide';
 
+import styles from './Scene.scss';
+
 const Scene = () => (
   <svg width="3447px" viewBox="0 0 3447 3152">
     <defs>
@@ -71,7 +73,7 @@ const Scene = () => (
       <Mountains />
       <EndlessSlide>
         <Stones />
-        <g style={{ transform: 'translateX(-100%)' }}>
+        <g className={styles.shifted}>
           <Stones />
         </g>
       </EndlessSlide>
