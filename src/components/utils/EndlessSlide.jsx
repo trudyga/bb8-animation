@@ -46,6 +46,7 @@ class EndlessSlide extends React.PureComponent {
         }
       }
     );
+    tl.delay(10);
     tl.add(slideTween);
     if (restPercent > 0) {
       tl.add(

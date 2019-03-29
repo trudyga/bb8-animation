@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 import TimelineMax from 'gsap/TimelineMax';
+
+import Indicators from './Indicators';
 import styles from './Face.scss';
 
 class Face extends React.PureComponent {
@@ -18,9 +20,13 @@ class Face extends React.PureComponent {
     onLookBackwardEnd: () => {}
   };
 
+  state = {
+    isIndicatorActive: false
+  };
+
   $face = null;
 
-  faceTransform = { x: -275, y: 21, maxL: { x: -575 }, midL: { x: -550 }, maxR: { x: -25 } };
+  faceTransform = { x: -275, y: 21, maxL: { x: -575 }, midL: { x: -535 }, maxR: { x: -25 } };
 
   $eyes = null;
 
@@ -28,14 +34,25 @@ class Face extends React.PureComponent {
 
   $head = null;
 
+  // lens variables
+  $primLensRedCircle = null;
+
+  $primLensRedDot = null;
+
+  $secLens = null;
+
   componentDidMount() {
+    this.initFaceAnimation();
+    this.initFaceDetailsAnimation();
+  }
+
+  initFaceAnimation = () => {
     const { onLookBackward, onLookBackwardEnd } = this.props;
     const faceTimeline = new TimelineMax({ repeat: -1 });
 
     const faceItems = [this.$face, this.$eyes];
-
     faceTimeline
-      .delay(3)
+      .delay(13)
       .to(faceItems, 0.5, {
         x: this.faceTransform.maxR.x,
         onStart: onLookBackward,
@@ -62,9 +79,41 @@ class Face extends React.PureComponent {
         x: this.faceTransform.x,
         delay: 1.5
       });
-  }
+  };
+
+  initFaceDetailsAnimation = () => {
+    const faceItems = [this.$face, this.$eyes];
+
+    const faceDetailsTimeline = new TimelineMax({});
+    faceDetailsTimeline
+      .delay(1)
+      .to(faceItems, 0.4, {
+        x: this.faceTransform.x,
+        delay: 3,
+        onComplete: () => this.setState({ isIndicatorActive: true })
+      })
+      .to(this.$lensSwitch, 0.5, { x: 0 })
+      .to(this.$primLens, 2, {
+        scale: 2,
+        x: 0,
+        y: 0
+      })
+      .to(this.$lensSwitch, 0.5, {
+        x: 11,
+        onComplete: () => this.setState({ isIndicatorActive: false })
+      })
+      .to(this.$secLens, 0.4, {
+        fill: 'rgb(132, 120, 69)'
+      })
+      .to(this.$secLens, 0.4, {
+        fill: '#232323',
+        onComplete: () => this.setState({ isIndicatorActive: true })
+      })
+      .to(this.$lensSwitch, 0.5, { x: 0 });
+  };
 
   render() {
+    const { isIndicatorActive } = this.state;
     const { titlPosition } = this.props;
     const eyesTransform = `translate(${this.eyesTransform.x}, ${this.eyesTransform.y})`;
 
@@ -116,7 +165,7 @@ class Face extends React.PureComponent {
                   this.$face = el;
                 }}
                 id="bb8-face"
-                transform="translate(-275.000000, 21.000000)"
+                transform="translate(-550.000000, 21.000000)"
               >
                 <g transform="translate(30.000000, 216.000000)">
                   <g transform="translate(0.000000, 7.000000)">
@@ -133,70 +182,7 @@ class Face extends React.PureComponent {
                       mask="url(#l)"
                     />
                   </g>
-                  <g transform="translate(312.000000, 18.000000)">
-                    <mask id="n" fill="#fff">
-                      <use xlinkHref="#m" />
-                    </mask>
-                    <rect
-                      width="42"
-                      height="12"
-                      fill="#3291B1"
-                      fillRule="nonzero"
-                      stroke="#000"
-                      strokeOpacity="0.204"
-                      strokeWidth="2"
-                      mask="url(#n)"
-                      rx="6"
-                    />
-                  </g>
-                  <g transform="translate(312.000000, 36.000000)">
-                    <mask id="p" fill="#fff">
-                      <use xlinkHref="#o" />
-                    </mask>
-                    <rect
-                      width="42"
-                      height="12"
-                      fill="#3291B1"
-                      fillRule="nonzero"
-                      stroke="#000"
-                      strokeOpacity="0.204"
-                      strokeWidth="2"
-                      mask="url(#p)"
-                      rx="6"
-                    />
-                  </g>
-                  <g transform="translate(312.000000, 18.000000)">
-                    <mask id="r" fill="#fff">
-                      <use xlinkHref="#q" />
-                    </mask>
-                    <rect
-                      width="42"
-                      height="12"
-                      fill="#70DDFF"
-                      fillRule="nonzero"
-                      stroke="#000"
-                      strokeOpacity="0.204"
-                      strokeWidth="2"
-                      mask="url(#r)"
-                      rx="6"
-                    />
-                  </g>
-                  <g transform="translate(312.000000, 36.000000)">
-                    <mask id="t" fill="#fff">
-                      <use xlinkHref="#s" />
-                    </mask>
-                    <rect
-                      width="42"
-                      height="12"
-                      fill="#70DDFF"
-                      fillRule="nonzero"
-                      stroke="#000"
-                      strokeOpacity="0.204"
-                      strokeWidth="2"
-                      mask="url(#t)"
-                      rx="6"
-                    />
-                  </g>
+                  <Indicators isProcessing={isIndicatorActive} />
                   <polygon fill="#FFF" fillRule="nonzero" points="366 0 392 0 392 83 366 83" />
                   <polygon fill="#FFF" fillRule="nonzero" points="229 0 272 0 272 83 229 83" />
                   <polygon fill="#FFF" fillRule="nonzero" points="412 0 712 0 712 83 412 83" />
@@ -258,7 +244,17 @@ class Face extends React.PureComponent {
                   points="27 306 1243 306 1243 409 27 409"
                 />
                 <g transform="translate(523.000000, 230.000000)">
-                  <circle cx="11" cy="18" r="11" fill="#878787" fillRule="nonzero" />
+                  <circle
+                    ref={el => {
+                      this.$lensSwitch = el;
+                    }}
+                    style={{ transform: 'translateX(6.5px)' }}
+                    cx="11"
+                    cy="18"
+                    r="11"
+                    fill="#878787"
+                    fillRule="nonzero"
+                  />
                   <path
                     stroke="#8F8F8F"
                     strokeWidth="3"
@@ -417,22 +413,43 @@ class Face extends React.PureComponent {
                 ref={el => {
                   this.$eyes = el;
                 }}
-                transform="translate(-275.000000, 21.000000)"
+                transform="translate(-550.000000, 21.000000)"
               >
                 <g>
                   <g id="bb8-eyes" opacity="1" fillRule="nonzero" transform={eyesTransform}>
-                    <g transform="translate(167.000000, 103.000000)">
+                    <g id="secondary-lens" transform="translate(167.000000, 103.000000)">
                       <ellipse cx="25.4" cy="25.853" fill="#484848" rx="25.38" ry="25.424" />
                       <ellipse cx="25.4" cy="25.853" fill="#333" rx="22.49" ry="22.529" />
-                      <ellipse cx="27.4" cy="24.853" fill="#232323" rx="20.545" ry="20.58" />
+                      <ellipse
+                        ref={el => {
+                          this.$secLens = el;
+                        }}
+                        cx="27.4"
+                        cy="24.853"
+                        fill="#232323"
+                        rx="20.545"
+                        ry="20.58"
+                      />
                       <circle cx="19.5" cy="15.5" r="2.5" fill="#FFF" opacity="0.684" />
                       <circle cx="29.5" cy="12.5" r="2.5" fill="#FFF" opacity="0.684" />
                       <circle cx="40.5" cy="20.5" r="3.5" fill="#FFF" opacity="0.684" />
                     </g>
                     <circle cx="54.36" cy="54.36" r="54.36" fill="#1C1C1C" />
-                    <g transform="translate(26.000000, 26.000000)">
+                    <g
+                      ref={el => {
+                        this.$primLens = el;
+                      }}
+                      transform="translate(26.000000, 26.000000)"
+                    >
                       <circle cx="28.147" cy="28.147" r="28.147" fill="#411414" />
-                      <circle cx="28.517" cy="28.517" r="16.517" fill="#FF0006" opacity="0.319" />
+                      <circle
+                        id="secondary-lens"
+                        cx="28.517"
+                        cy="28.517"
+                        r="16.517"
+                        fill="#FF0006"
+                        opacity="0.319"
+                      />
                       <circle cx="27.938" cy="27.938" r="8.938" fill="#FF0006" opacity="0.319" />
                       <circle cx="28.697" cy="28.697" r="2.697" fill="#EEE" opacity="0.78" />
                     </g>

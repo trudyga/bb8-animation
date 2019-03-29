@@ -33,24 +33,26 @@ class Robot extends React.PureComponent {
   render() {
     const { headTitlPosition } = this.state;
     return (
-      <g
-        id="bb8"
-        style={{
-          transform: 'translate(90%, 40%) scale(0.1, 0.1)',
-          transition: 'transform 1s ease-in-out'
-        }}
-        transform="translate(1273.000000, 1172.000000)"
-      >
-        <BodyShadow />
-        <BodyWheel
-          onMovementStart={this.innertionHeadTitl}
-          onSpeedUpComplete={this.titlHeadForward}
-        />
-        <Face
-          titlPosition={headTitlPosition}
-          onLookBackward={this.titlHeadBackward}
-          onLookBackwardEnd={this.titlHeadForward}
-        />
+      <g>
+        <g
+          id="bb8"
+          // style={{
+          //   transform: 'translate(90%, 40%) scale(0.1, 0.1)',
+          //   transition: 'transform 1s ease-in-out'
+          // }}
+          transform="translate(1273.000000, 1172.000000)"
+        >
+          <BodyShadow />
+          <BodyWheel
+            onMovementStart={this.innertionHeadTitl}
+            onSpeedUpComplete={this.titlHeadForward}
+          />
+          <Face
+            titlPosition={headTitlPosition}
+            onLookBackward={this.titlHeadBackward}
+            onLookBackwardEnd={this.titlHeadForward}
+          />
+        </g>
       </g>
     );
   }

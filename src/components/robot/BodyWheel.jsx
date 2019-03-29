@@ -20,6 +20,7 @@ class BodyWheel extends React.PureComponent {
     const { onMovementStart, onSpeedUpComplete } = this.props;
 
     const tl = new TimelineMax({ repeat: 0 });
+    tl.delay(10);
 
     const slideTween = TweenMax.fromTo(
       this.$bodyWheel,
