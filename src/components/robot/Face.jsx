@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import classNames from 'classnames';
 import TimelineMax from 'gsap/TimelineMax';
+import TimelineLite from 'gsap/TimelineLite';
 
 import Indicators from './Indicators';
 import styles from './Face.scss';
@@ -84,12 +85,12 @@ class Face extends React.PureComponent {
   initFaceDetailsAnimation = () => {
     const faceItems = [this.$face, this.$eyes];
 
-    const faceDetailsTimeline = new TimelineMax({});
+    const faceDetailsTimeline = new TimelineLite();
     faceDetailsTimeline
-      .delay(1)
+      .delay(2)
       .to(faceItems, 0.6, {
         x: this.faceTransform.x,
-        delay: 3,
+        delay: 2,
         onComplete: () => this.setState({ isIndicatorActive: true })
       })
       .to(this.$lensSwitch, 0.5, { x: 0 })
